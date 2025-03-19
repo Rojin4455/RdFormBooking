@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 
 const BookingForm = () => {
   // State variables
@@ -50,22 +51,25 @@ const BookingForm = () => {
     setLoading(true);
     try {
       // Simulating API call with a timeout
-      await new Promise(resolve => setTimeout(resolve, 300));
-      
+    //   await new Promise(resolve => setTimeout(resolve, 300));
+
+      const response = await axios.get(`http://44.204.156.38/api/contacts/?search=${query}`)
+        console.log(response.data)
+        
       // Mock data generation based on search term
-      const mockContacts = [
-        { id: 1, name: 'Alex Thompson', email: 'alex@example.com', phone: '555-1234' },
-        { id: 2, name: 'Alice Johnson', email: 'alice@example.com', phone: '555-2345' },
-        { id: 3, name: 'Andrew Davis', email: 'andrew@example.com', phone: '555-3456' },
-        { id: 4, name: 'Anna Wilson', email: 'anna@example.com', phone: '555-4567' },
-        { id: 5, name: 'Anthony Miller', email: 'anthony@example.com', phone: '555-5678' },
-        { id: 6, name: 'Amanda Brown', email: 'amanda@example.com', phone: '555-6789' },
-        { id: 7, name: 'Adrian Clark', email: 'adrian@example.com', phone: '555-7890' },
-      ].filter(contact => 
-        contact.name.toLowerCase().includes(query.toLowerCase())
-      );
+    //   const mockContacts = [
+    //     { id: 1, name: 'Alex Thompson', email: 'alex@example.com', phone: '555-1234' },
+    //     { id: 2, name: 'Alice Johnson', email: 'alice@example.com', phone: '555-2345' },
+    //     { id: 3, name: 'Andrew Davis', email: 'andrew@example.com', phone: '555-3456' },
+    //     { id: 4, name: 'Anna Wilson', email: 'anna@example.com', phone: '555-4567' },
+    //     { id: 5, name: 'Anthony Miller', email: 'anthony@example.com', phone: '555-5678' },
+    //     { id: 6, name: 'Amanda Brown', email: 'amanda@example.com', phone: '555-6789' },
+    //     { id: 7, name: 'Adrian Clark', email: 'adrian@example.com', phone: '555-7890' },
+    //   ].filter(contact => 
+    //     contact.name.toLowerCase().includes(query.toLowerCase())
+    //   );
       
-      setContacts(mockContacts);
+      setContacts(response.data.results);
     } catch (error) {
       console.error('Error fetching contacts:', error);
     } finally {
@@ -99,7 +103,7 @@ const BookingForm = () => {
   // Handle contact selection
   const handleContactSelect = (contact) => {
     setSelectedContact(contact);
-    setSearchTerm(contact.name);
+    setSearchTerm(contact.first_name);
     setShowContactDropdown(false);
   };
 
@@ -119,9 +123,8 @@ const BookingForm = () => {
     }
     
     // Split the contact name for the URL parameters
-    const { firstName, lastName } = splitName(selectedContact.name);
     
-    const url = `https://link.resultsdrivenrei.com/widget/booking/${selectedCalendar}?email=${selectedContact.email}&phone=${selectedContact.phone}&first_name=${encodeURIComponent(firstName)}&last_name=${encodeURIComponent(lastName)}`;
+    const url = `https://link.resultsdrivenrei.com/widget/booking/${selectedCalendar}?email=${selectedContact.email}&phone=${selectedContact.phone}&first_name=${selectedContact.first_name}&last_name=${selectedContact.last_name}`;
     window.location.href = url;
   };
 
@@ -173,7 +176,7 @@ const BookingForm = () => {
                     className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-0"
                     onClick={() => handleContactSelect(contact)}
                   >
-                    <div className="font-medium">{contact.name}</div>
+                    <div className="font-medium">{contact.first_name}</div>
                     <div className="text-sm text-gray-600">{contact.email}</div>
                   </div>
                 ))}
@@ -193,7 +196,7 @@ const BookingForm = () => {
             
             {selectedContact && (
               <div className="mt-2 p-2 bg-gray-50 rounded-lg text-sm">
-                <p className="font-medium">{selectedContact.name}</p>
+                <p className="font-medium">{selectedContact.first_name}</p>
                 <p className="text-gray-600">{selectedContact.email} | {selectedContact.phone}</p>
               </div>
             )}
