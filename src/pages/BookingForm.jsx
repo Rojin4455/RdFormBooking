@@ -121,7 +121,7 @@ const BookingForm = () => {
     // Split the contact name for the URL parameters
     const { firstName, lastName } = splitName(selectedContact.name);
     
-    const url = `https://link.resultsdrivenrei.com/widget/booking/${selectedCalendar}?email=${selectedContact.email}&phone=${selectedContact.phone}&firstName=${encodeURIComponent(firstName)}&lastName=${encodeURIComponent(lastName)}`;
+    const url = `https://link.resultsdrivenrei.com/widget/booking/${selectedCalendar}?email=${selectedContact.email}&phone=${selectedContact.phone}&first_name=${encodeURIComponent(firstName)}&last_name=${encodeURIComponent(lastName)}`;
     window.location.href = url;
   };
 
