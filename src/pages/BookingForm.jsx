@@ -17,7 +17,7 @@ const BookingForm = () => {
   const isKelceesSelected = selectedUser === '3';
 
   // Check if form is valid - now requires Michael Kelcees to be selected
-  const isFormValid = selectedContact && isKelceesSelected && calendarType && selectedCalendar;
+  const isFormValid = selectedContact && calendarType && selectedCalendar;
 
   const users = [
     { id: 1, name: 'Steve' },
@@ -320,7 +320,6 @@ const BookingForm = () => {
                 ? 'bg-gradient-to-r from-gray-600 to-gray-800 text-white hover:opacity-90' 
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
-            disabled={!isFormValid}
           >
             Schedule Meeting
           </button>
