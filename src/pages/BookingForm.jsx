@@ -12,23 +12,23 @@ const BookingForm = () => {
   const [showContactDropdown, setShowContactDropdown] = useState(false);
   const contactDropdownRef = useRef(null);
 
-  // Check if the selected user is Michael Williams (ID: 3)
-  const isWilliamsSelected = selectedUser === '3';
+  // Check if the selected user is Michael Kelcees (ID: 3)
+  const isKelceesSelected = selectedUser === '3';
 
-  // Check if form is valid - now requires Michael Williams to be selected
-  const isFormValid = selectedContact && isWilliamsSelected && calendarType && selectedCalendar;
+  // Check if form is valid - now requires Michael Kelcees to be selected
+  const isFormValid = selectedContact && isKelceesSelected && calendarType && selectedCalendar;
 
   // Sample users data
   const users = [
-    { id: 1, name: 'John Smith' },
-    { id: 2, name: 'Sarah Johnson' },
-    { id: 3, name: 'Michael Williams' },
-    { id: 4, name: 'Emma Brown' },
-    { id: 5, name: 'David Jones' },
+    { id: 1, name: 'Steve' },
+    { id: 2, name: 'Mike' },
+    { id: 3, name: 'Kelcee' },
+    { id: 4, name: 'Charles Johnson' },
+    { id: 5, name: 'Alec' },
   ];
 
-  // Calendar data - now we specify these are Williams' calendars
-  const williamsCalendars = {
+  // Calendar data - now we specify these are Kelcees' calendars
+  const KelceesCalendars = {
     eventCalendar: [
       { name: 'Marketing Breakdown Calendar', id: 'pDjjjnOFa84nDxJRlMrv' },
       { name: 'Business Breakdown Calendar', id: 'zjtwwfxUxrHreNpX72rO' },
@@ -114,7 +114,7 @@ const BookingForm = () => {
     e.preventDefault();
     
     if (!isFormValid) {
-      alert('Please fill all required fields and select Michael Williams as the user');
+      alert('Please fill all required fields and select Michael Kelcees as the user');
       return;
     }
     
@@ -217,14 +217,14 @@ const BookingForm = () => {
                 </option>
               ))}
             </select>
-            {selectedUser && !isWilliamsSelected && (
+            {selectedUser && !isKelceesSelected && (
               <p className="text-sm text-red-500 mt-1">
-                Only Michael Williams' calendars are currently available
+                Only Michael Kelcees' calendars are currently available
               </p>
             )}
           </div>
           
-          {/* Calendar Type Selection - only enabled for Michael Williams */}
+          {/* Calendar Type Selection - only enabled for Michael Kelcees */}
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="calendarType">
               Calendar Type <span className="text-red-500">*</span>
@@ -236,14 +236,14 @@ const BookingForm = () => {
                   calendarType === 'eventCalendar'
                     ? 'bg-gray-600 text-white' 
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                } ${!isWilliamsSelected ? 'opacity-50 cursor-not-allowed' : ''}`}
+                } ${!isKelceesSelected ? 'opacity-50 cursor-not-allowed' : ''}`}
                 onClick={() => {
-                  if (isWilliamsSelected) {
+                  if (isKelceesSelected) {
                     setCalendarType('eventCalendar');
                     setSelectedCalendar('');
                   }
                 }}
-                disabled={!isWilliamsSelected}
+                disabled={!isKelceesSelected}
               >
                 Event Calendar
               </button>
@@ -253,26 +253,26 @@ const BookingForm = () => {
                   calendarType === 'roundRobin'
                     ? 'bg-gray-600 text-white' 
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                } ${!isWilliamsSelected ? 'opacity-50 cursor-not-allowed' : ''}`}
+                } ${!isKelceesSelected ? 'opacity-50 cursor-not-allowed' : ''}`}
                 onClick={() => {
-                  if (isWilliamsSelected) {
+                  if (isKelceesSelected) {
                     setCalendarType('roundRobin');
                     setSelectedCalendar('');
                   }
                 }}
-                disabled={!isWilliamsSelected}
+                disabled={!isKelceesSelected}
               >
                 Round Robin
               </button>
             </div>
-            {!isWilliamsSelected && selectedUser && (
+            {!isKelceesSelected && selectedUser && (
               <p className="text-sm text-gray-500 mt-2">
-                Please select Michael Williams to access calendars
+                Please select Michael Kelcees to access calendars
               </p>
             )}
           </div>
           
-          {/* Calendar Selection - only available for Michael Williams */}
+          {/* Calendar Selection - only available for Michael Kelcees */}
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="calendar">
               Select Calendar <span className="text-red-500">*</span>
@@ -282,21 +282,21 @@ const BookingForm = () => {
               className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-gray-500 focus:outline-none transition-colors"
               value={selectedCalendar}
               onChange={(e) => setSelectedCalendar(e.target.value)}
-              disabled={!isWilliamsSelected || !calendarType}
+              disabled={!isKelceesSelected || !calendarType}
             >
               <option value="">Select a calendar</option>
-              {isWilliamsSelected && calendarType && williamsCalendars[calendarType].map((calendar) => (
+              {isKelceesSelected && calendarType && KelceesCalendars[calendarType].map((calendar) => (
                 <option key={calendar.id} value={calendar.id}>
                   {calendar.name}
                 </option>
               ))}
             </select>
-            {!isWilliamsSelected && selectedUser && (
+            {!isKelceesSelected && selectedUser && (
               <p className="text-sm text-gray-500 mt-1">
-                Please select Michael Williams to access calendars
+                Please select Michael Kelcees to access calendars
               </p>
             )}
-            {isWilliamsSelected && !calendarType && (
+            {isKelceesSelected && !calendarType && (
               <p className="text-sm text-orange-500 mt-1">Please select a calendar type first</p>
             )}
           </div>
@@ -316,8 +316,8 @@ const BookingForm = () => {
           
           {!isFormValid && selectedUser && (
             <p className="text-xs text-center text-gray-500 mt-2">
-              {!isWilliamsSelected 
-                ? "Only Michael Williams' calendars are available for scheduling" 
+              {!isKelceesSelected 
+                ? "Only Michael Kelcees' calendars are available for scheduling" 
                 : "Please fill all required fields to enable scheduling"}
             </p>
           )}
