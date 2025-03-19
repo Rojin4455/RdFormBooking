@@ -8,10 +8,11 @@ const BookingForm = () => {
   const [loading, setLoading] = useState(false);
   const [selectedContact, setSelectedContact] = useState(null);
   const [selectedUser, setSelectedUser] = useState('');
-  const [calendarType, setCalendarType] = useState('');
+  const calendarType = "roundRobin"
   const [selectedCalendar, setSelectedCalendar] = useState('');
   const [showContactDropdown, setShowContactDropdown] = useState(false);
   const contactDropdownRef = useRef(null);
+  const [showBooking, setShowBooking] = useState(false)
 
   // Check if the selected user is Michael Kelcees (ID: 3)
   const isKelceesSelected = selectedUser === '3';
@@ -20,11 +21,13 @@ const BookingForm = () => {
   const isFormValid = selectedContact && calendarType && selectedCalendar;
 
   const users = [
-    { id: 1, name: 'Steve' },
-    { id: 2, name: 'Mike' },
-    { id: 3, name: 'Kelcee' },
+    { id: 1, name: 'Steven Higgins' },
+    { id: 2, name: 'Mike Reed' },
+    { id: 3, name: 'Kelcee Lari' },
     { id: 4, name: 'Charles Johnson' },
-    { id: 5, name: 'Alec' },
+    { id: 5, name: 'Alec Turner' },
+    { id: 5, name: 'Bo Hardy' },
+    { id: 5, name: 'Jordan Lane' },
   ];
 
   const KelceesCalendars = {
@@ -123,7 +126,6 @@ const BookingForm = () => {
   };
 
   useEffect(() => {
-    setCalendarType('');
     setSelectedCalendar('');
   }, [selectedUser]);
 
@@ -148,7 +150,12 @@ const BookingForm = () => {
     }
     
     const url = `${baseUrl}?${params.toString()}`;
-    window.location.href = url;
+    // window.location.href = url;
+
+    setShowBooking(true);
+    setTimeout(() => {
+      document.getElementById("bookingFrame").src = url;
+    }, 100);
   };
 
   useEffect(() => {
@@ -166,12 +173,14 @@ const BookingForm = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-indigo-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-xl overflow-hidden">
+      <div className="w-full max-w-2xl bg-white rounded-xl shadow-xl overflow-hidden">
       <div className="bg-gradient-to-r from-gray-800 to-gray-900 px-6 py-8">
 
           <h1 className="text-3xl font-bold text-white text-center">Schedule a Meeting</h1>
           <p className="text-gray-100 text-center mt-2">Find your contact and book a calendar event</p>
         </div>
+
+        {!showBooking && (
         
         <form onSubmit={handleSubmit} className="p-6">
           <div className="mb-6 relative" ref={contactDropdownRef}>
@@ -218,7 +227,7 @@ const BookingForm = () => {
             {selectedContact && (
               <div className="mt-2 p-2 bg-gray-50 rounded-lg text-sm">
                 <p className="font-medium">{selectedContact.first_name}</p>
-                <p className="text-gray-600">{selectedContact.email} | {selectedContact.phone}</p>
+                <p className="text-gray-600">{selectedContact.email}</p>
               </div>
             )}
           </div>
@@ -251,7 +260,7 @@ const BookingForm = () => {
           {/* Calendar Type Selection - only enabled for Michael Kelcees */}
           <div className="mb-6">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="calendarType">
-              Calendar Type <span className="text-red-500">*</span>
+              Calendar Type
             </label>
             <div className="grid grid-cols-2 gap-4">
               {/* <button
@@ -278,10 +287,6 @@ const BookingForm = () => {
                     ? 'bg-gray-600 text-white' 
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
-                onClick={() => {
-                    setCalendarType('roundRobin');
-                    setSelectedCalendar('');
-                }}
                 // disabled={!isKelceesSelected}
               >
                 Round Robin
@@ -347,6 +352,20 @@ const BookingForm = () => {
             </p>
           )}
         </form>
+        )}
+
+        {showBooking && (
+  <div className="modal p-6">
+    <div className="modal-content">
+      <button onClick={() => setShowBooking(false)} >Close</button>
+      <iframe 
+        id="bookingFrame" 
+        style={{ width: "100%", height: "500px", border: "none" }} 
+        title="Booking Widget">
+      </iframe>
+    </div>
+  </div>
+)}
       </div>
     </div>
   );
