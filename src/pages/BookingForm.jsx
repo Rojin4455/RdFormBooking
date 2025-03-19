@@ -19,7 +19,6 @@ const BookingForm = () => {
   // Check if form is valid - now requires Michael Kelcees to be selected
   const isFormValid = selectedContact && isKelceesSelected && calendarType && selectedCalendar;
 
-  // Sample users data
   const users = [
     { id: 1, name: 'Steve' },
     { id: 2, name: 'Mike' },
@@ -28,15 +27,7 @@ const BookingForm = () => {
     { id: 5, name: 'Alec' },
   ];
 
-  // Calendar data - now we specify these are Kelcees' calendars
   const KelceesCalendars = {
-    eventCalendar: [
-      { name: 'Marketing Breakdown Calendar', id: 'pDjjjnOFa84nDxJRlMrv' },
-      { name: 'Business Breakdown Calendar', id: 'zjtwwfxUxrHreNpX72rO' },
-      { name: 'Systems Breakdown Calendar', id: 'RB0ws2DWhj0X67JhtEhA' },
-      { name: 'Bi-weekly Meeting Calendar', id: 'f25EIhrwbMEkSylYz1RN' },
-      { name: 'Team Building Breakdown Calendar', id: '2VlcEpcg8H7GBiWb3XQE' },
-    ],
     roundRobin: [
       { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
       { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
@@ -46,30 +37,59 @@ const BookingForm = () => {
     ],
   };
 
-  // Mock API call to fetch contacts
+
+  const StevesCalendars = {
+    roundRobin: [
+      { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
+      { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
+      { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
+      { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
+      { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
+    ],
+  };
+
+  const MikesCalendars = {
+    roundRobin: [
+      { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
+      { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
+      { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
+      { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
+      { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
+    ],
+  };
+
+  const CharlesCalendars = {
+    roundRobin: [
+      { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
+      { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
+      { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
+      { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
+      { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
+    ],
+  };
+
+
+  const AlecsCalendars = {
+    roundRobin: [
+      { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
+      { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
+      { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
+      { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
+      { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
+    ],
+  };
+
+
+  
+
   const fetchContacts = async (query) => {
     setLoading(true);
     try {
-      // Simulating API call with a timeout
-    //   await new Promise(resolve => setTimeout(resolve, 300));
 
       const response = await axios.get(`https://rd.kickinsaas.com/api/contacts/?search=${query}`)
       if (response.status ===200){
         console.log(response.data)
       
-        
-      // Mock data generation based on search term
-    //   const mockContacts = [
-    //     { id: 1, name: 'Alex Thompson', email: 'alex@example.com', phone: '555-1234' },
-    //     { id: 2, name: 'Alice Johnson', email: 'alice@example.com', phone: '555-2345' },
-    //     { id: 3, name: 'Andrew Davis', email: 'andrew@example.com', phone: '555-3456' },
-    //     { id: 4, name: 'Anna Wilson', email: 'anna@example.com', phone: '555-4567' },
-    //     { id: 5, name: 'Anthony Miller', email: 'anthony@example.com', phone: '555-5678' },
-    //     { id: 6, name: 'Amanda Brown', email: 'amanda@example.com', phone: '555-6789' },
-    //     { id: 7, name: 'Adrian Clark', email: 'adrian@example.com', phone: '555-7890' },
-    //   ].filter(contact => 
-    //     contact.name.toLowerCase().includes(query.toLowerCase())
-    //   );
       
       setContacts(response.data.results);
 }
@@ -80,15 +100,8 @@ const BookingForm = () => {
     }
   };
 
-  // Split a full name into first and last name
-  const splitName = (fullName) => {
-    const nameParts = fullName.trim().split(' ');
-    const firstName = nameParts[0] || '';
-    const lastName = nameParts.slice(1).join(' ') || '';
-    return { firstName, lastName };
-  };
 
-  // Handle search input change
+
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
@@ -103,20 +116,17 @@ const BookingForm = () => {
     }
   };
 
-  // Handle contact selection
   const handleContactSelect = (contact) => {
     setSelectedContact(contact);
     setSearchTerm(contact.first_name);
     setShowContactDropdown(false);
   };
 
-  // Reset calendar selections when user changes
   useEffect(() => {
     setCalendarType('');
     setSelectedCalendar('');
   }, [selectedUser]);
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -125,13 +135,11 @@ const BookingForm = () => {
       return;
     }
     
-    // Split the contact name for the URL parameters
     
     const url = `https://link.resultsdrivenrei.com/widget/booking/${selectedCalendar}?email=${selectedContact.email}&phone=${selectedContact.phone}&first_name=${selectedContact.first_name}&last_name=${selectedContact.last_name}`;
     window.location.href = url;
   };
 
-  // Close contact dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (contactDropdownRef.current && !contactDropdownRef.current.contains(event.target)) {
@@ -155,7 +163,6 @@ const BookingForm = () => {
         </div>
         
         <form onSubmit={handleSubmit} className="p-6">
-          {/* Contact Search */}
           <div className="mb-6 relative" ref={contactDropdownRef}>
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contact">
               Search Contact <span className="text-red-500">*</span>
@@ -223,11 +230,11 @@ const BookingForm = () => {
                 </option>
               ))}
             </select>
-            {selectedUser && !isKelceesSelected && (
+            {/* {selectedUser && !isKelceesSelected && (
               <p className="text-sm text-red-500 mt-1">
                 Only Michael Kelcees' calendars are currently available
               </p>
-            )}
+            )} */}
           </div>
           
           {/* Calendar Type Selection - only enabled for Michael Kelcees */}
@@ -236,7 +243,7 @@ const BookingForm = () => {
               Calendar Type <span className="text-red-500">*</span>
             </label>
             <div className="grid grid-cols-2 gap-4">
-              <button
+              {/* <button
                 type="button"
                 className={`py-3 px-4 rounded-lg font-medium transition-colors ${
                   calendarType === 'eventCalendar'
@@ -252,30 +259,28 @@ const BookingForm = () => {
                 disabled={!isKelceesSelected}
               >
                 Event Calendar
-              </button>
+              </button> */}
               <button
                 type="button"
                 className={`py-3 px-4 rounded-lg font-medium transition-colors ${
                   calendarType === 'roundRobin'
                     ? 'bg-gray-600 text-white' 
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                } ${!isKelceesSelected ? 'opacity-50 cursor-not-allowed' : ''}`}
+                }`}
                 onClick={() => {
-                  if (isKelceesSelected) {
                     setCalendarType('roundRobin');
                     setSelectedCalendar('');
-                  }
                 }}
-                disabled={!isKelceesSelected}
+                // disabled={!isKelceesSelected}
               >
                 Round Robin
               </button>
             </div>
-            {!isKelceesSelected && selectedUser && (
+            {/* {!isKelceesSelected && selectedUser && (
               <p className="text-sm text-gray-500 mt-2">
                 Please select Michael Kelcees to access calendars
               </p>
-            )}
+            )} */}
           </div>
           
           {/* Calendar Selection - only available for Michael Kelcees */}
@@ -288,23 +293,23 @@ const BookingForm = () => {
               className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-gray-500 focus:outline-none transition-colors"
               value={selectedCalendar}
               onChange={(e) => setSelectedCalendar(e.target.value)}
-              disabled={!isKelceesSelected || !calendarType}
+              disabled={!calendarType}
             >
               <option value="">Select a calendar</option>
-              {isKelceesSelected && calendarType && KelceesCalendars[calendarType].map((calendar) => (
+              {calendarType && KelceesCalendars[calendarType].map((calendar) => (
                 <option key={calendar.id} value={calendar.id}>
                   {calendar.name}
                 </option>
               ))}
             </select>
-            {!isKelceesSelected && selectedUser && (
+            {/* {!isKelceesSelected && selectedUser && (
               <p className="text-sm text-gray-500 mt-1">
                 Please select Michael Kelcees to access calendars
               </p>
-            )}
-            {isKelceesSelected && !calendarType && (
+            )} */}
+            {/* {isKelceesSelected && !calendarType && (
               <p className="text-sm text-orange-500 mt-1">Please select a calendar type first</p>
-            )}
+            )} */}
           </div>
           
           {/* Submit Button */}
@@ -322,9 +327,8 @@ const BookingForm = () => {
           
           {!isFormValid && selectedUser && (
             <p className="text-xs text-center text-gray-500 mt-2">
-              {!isKelceesSelected 
-                ? "Only Michael Kelcees' calendars are available for scheduling" 
-                : "Please fill all required fields to enable scheduling"}
+             
+            Please fill all required fields to enable scheduling
             </p>
           )}
           {!selectedUser && (
