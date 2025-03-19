@@ -136,7 +136,18 @@ const BookingForm = () => {
     }
     
     
-    const url = `https://link.resultsdrivenrei.com/widget/booking/${selectedCalendar}?email=${selectedContact.email}&phone=${selectedContact.phone}&first_name=${selectedContact.first_name}&last_name=${selectedContact.last_name}`;
+    const baseUrl = `https://link.resultsdrivenrei.com/widget/booking/${selectedCalendar}`;
+    const params = new URLSearchParams({
+      email: selectedContact.email,
+      first_name: selectedContact.first_name,
+      last_name: selectedContact.last_name
+    });
+    
+    if (selectedContact.phone) {
+      params.append("phone", selectedContact.phone);
+    }
+    
+    const url = `${baseUrl}?${params.toString()}`;
     window.location.href = url;
   };
 
