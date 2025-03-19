@@ -53,7 +53,7 @@ const BookingForm = () => {
       // Simulating API call with a timeout
     //   await new Promise(resolve => setTimeout(resolve, 300));
 
-      const response = await axios.get(`http://44.204.156.38/api/contacts/?search=${query}`)
+      const response = await axios.get(`https://44.204.156.38/api/contacts/?search=${query}`)
         console.log(response.data)
         
       // Mock data generation based on search term
