@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 const BookingForm = () => {
-  // State variables
   const [searchTerm, setSearchTerm] = useState('');
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -14,10 +13,7 @@ const BookingForm = () => {
   const contactDropdownRef = useRef(null);
   const [showBooking, setShowBooking] = useState(false)
 
-  // Check if the selected user is Michael Kelcees (ID: 3)
-  const isKelceesSelected = selectedUser === '3';
 
-  // Check if form is valid - now requires Michael Kelcees to be selected
   const isFormValid = selectedContact && calendarType && selectedCalendar;
 
   const users = [
@@ -26,8 +22,8 @@ const BookingForm = () => {
     { id: 3, name: 'Kelcee Lari' },
     { id: 4, name: 'Charles Johnson' },
     { id: 5, name: 'Alec Turner' },
-    { id: 5, name: 'Bo Hardy' },
-    { id: 5, name: 'Jordan Lane' },
+    { id: 6, name: 'Bo Hardy' },
+    { id: 7, name: 'Jordan Lane' },
   ];
 
   const KelceesCalendars = {
@@ -146,8 +142,9 @@ const BookingForm = () => {
     });
     
     if (selectedContact.phone) {
-      params.append("phone", selectedContact.phone);
-    }
+        const cleanedPhone = selectedContact.phone.replace(/\D/g, ''); 
+        params.append("phone", cleanedPhone);
+      }
     
     const url = `${baseUrl}?${params.toString()}`;
     // window.location.href = url;
@@ -200,9 +197,9 @@ const BookingForm = () => {
             {/* Contact Search Results */}
             {showContactDropdown && contacts.length > 0 && (
               <div className="absolute z-30 mt-1 w-full bg-white rounded-lg shadow-lg max-h-60 overflow-y-auto border border-gray-200">
-                {contacts.slice(0, 5).map((contact) => (
+                {contacts.slice(0, 5).map((contact, index) => (
                   <div
-                    key={contact.id}
+                    key={contact.id ?? `${contact.email}-${index}`}
                     className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-0"
                     onClick={() => handleContactSelect(contact)}
                   >
@@ -210,11 +207,11 @@ const BookingForm = () => {
                     <div className="text-sm text-gray-600">{contact.email}</div>
                   </div>
                 ))}
-                {contacts.length > 5 && (
+                {/* {contacts.length > 5 && (
                   <div className="px-4 py-2 text-sm text-gray-500 bg-gray-50 text-center">
                     Scroll to see more results
                   </div>
-                )}
+                )} */}
               </div>
             )}
             
