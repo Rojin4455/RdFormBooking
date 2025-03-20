@@ -138,7 +138,8 @@ const BookingForm = () => {
     const params = new URLSearchParams({
       email: selectedContact.email,
       first_name: selectedContact.first_name,
-      last_name: selectedContact.last_name
+      last_name: selectedContact.last_name,
+      id:selectedContact.id
     });
     
     if (selectedContact.phone) {
@@ -169,13 +170,12 @@ const BookingForm = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-indigo-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl bg-white rounded-xl shadow-xl overflow-hidden">
-      <div className="bg-gradient-to-r from-gray-800 to-gray-900 px-6 py-8">
-
-          <h1 className="text-3xl font-bold text-white text-center">Schedule a Meeting</h1>
-          <p className="text-gray-100 text-center mt-2">Find your contact and book a calendar event</p>
-        </div>
+<div className="min-h-screen bg-gradient-to-br from-gray-50 to-indigo-50 flex items-center justify-center p-4">
+  <div className="w-full max-w-3xl bg-white rounded-xl shadow-xl overflow-hidden">
+    <div className="bg-gradient-to-r from-gray-800 to-gray-900 px-6 py-8">
+      <h1 className="text-3xl font-bold text-white text-center">Schedule a Meeting</h1>
+      <p className="text-gray-100 text-center mt-2">Find your contact and book a calendar event</p>
+    </div>
 
         {!showBooking && (
         
@@ -204,7 +204,7 @@ const BookingForm = () => {
                     onClick={() => handleContactSelect(contact)}
                   >
                     <div className="font-medium">{contact.first_name}</div>
-                    <div className="text-sm text-gray-600">{contact.email}</div>
+                    <div className="text-sm text-gray-600">{contact.email} {contact.phone ? " | " + contact.phone : ""}{contact.id ? " | " + contact.id : ""}</div>
                   </div>
                 ))}
                 {/* {contacts.length > 5 && (
@@ -224,7 +224,7 @@ const BookingForm = () => {
             {selectedContact && (
               <div className="mt-2 p-2 bg-gray-50 rounded-lg text-sm">
                 <p className="font-medium">{selectedContact.first_name}</p>
-                <p className="text-gray-600">{selectedContact.email}</p>
+                <p className="text-gray-600">{selectedContact.email} {selectedContact.phone ? " | " + selectedContact.phone : ""}{selectedContact.id ? " | " + selectedContact.id : ""}</p>
               </div>
             )}
           </div>
@@ -255,46 +255,7 @@ const BookingForm = () => {
           </div>
           
           {/* Calendar Type Selection - only enabled for Michael Kelcees */}
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="calendarType">
-              Calendar Type
-            </label>
-            <div className="grid grid-cols-2 gap-4">
-              {/* <button
-                type="button"
-                className={`py-3 px-4 rounded-lg font-medium transition-colors ${
-                  calendarType === 'eventCalendar'
-                    ? 'bg-gray-600 text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                } ${!isKelceesSelected ? 'opacity-50 cursor-not-allowed' : ''}`}
-                onClick={() => {
-                  if (isKelceesSelected) {
-                    setCalendarType('eventCalendar');
-                    setSelectedCalendar('');
-                  }
-                }}
-                disabled={!isKelceesSelected}
-              >
-                Event Calendar
-              </button> */}
-              <button
-                type="button"
-                className={`py-3 px-4 rounded-lg font-medium transition-colors ${
-                  calendarType === 'roundRobin'
-                    ? 'bg-gray-600 text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-                // disabled={!isKelceesSelected}
-              >
-                Round Robin
-              </button>
-            </div>
-            {/* {!isKelceesSelected && selectedUser && (
-              <p className="text-sm text-gray-500 mt-2">
-                Please select Michael Kelcees to access calendars
-              </p>
-            )} */}
-          </div>
+         
           
           {/* Calendar Selection - only available for Michael Kelcees */}
           <div className="mb-6">
@@ -351,18 +312,25 @@ const BookingForm = () => {
         </form>
         )}
 
-        {showBooking && (
-  <div className="modal p-6">
-    <div className="modal-content">
-      <button onClick={() => setShowBooking(false)} >Close</button>
-      <iframe 
-        id="bookingFrame" 
-        style={{ width: "100%", height: "500px", border: "none" }} 
-        title="Booking Widget">
-      </iframe>
-    </div>
-  </div>
-)}
+{showBooking && (
+      <div className="fixed inset-0 bg-white z-50 flex flex-col">
+        <div className="p-4 bg-[#155EEF12] text-white flex justify-between items-center">
+          <h2 className="text-xl text-gray-800 font-bold">Booking</h2>
+          <button 
+            onClick={() => setShowBooking(false)} 
+            className="bg-blue-50 border border-blue-500 px-4 py-2 rounded-md text-blue-600 hover:bg-blue-500 hover:text-white transition duration-200"
+            >
+            Close
+          </button>
+        </div>
+        <iframe 
+          id="bookingFrame" 
+          className="w-full h-full"
+          style={{ border: "none" }} 
+          title="Booking Widget"
+        />
+      </div>
+    )}
       </div>
     </div>
   );
