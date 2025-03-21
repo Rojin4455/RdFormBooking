@@ -12,71 +12,96 @@ const BookingForm = () => {
   const [showContactDropdown, setShowContactDropdown] = useState(false);
   const contactDropdownRef = useRef(null);
   const [showBooking, setShowBooking] = useState(false)
+  // const [selectedUser, setSelectedUser] = useState('');
+  // const [selectedCalendar, setSelectedCalendar] = useState('');
+  // const calendarType = "roundRobin"; // Keeping it constant for now
+
 
 
   const isFormValid = selectedContact && calendarType && selectedCalendar;
 
+
   const users = [
-    { id: 1, name: 'Steven Higgins' },
+    // { id: 1, name: 'Steven Higgins' },
     { id: 2, name: 'Mike Reed' },
     { id: 3, name: 'Kelcee Lari' },
-    { id: 4, name: 'Charles Johnson' },
-    { id: 5, name: 'Alec Turner' },
+    // { id: 4, name: 'Charles Johnson' },
+    // { id: 5, name: 'Alec Turner' },
     { id: 6, name: 'Bo Hardy' },
     { id: 7, name: 'Jordan Lane' },
   ];
 
-  const KelceesCalendars = {
-    roundRobin: [
-      { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
-      { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
-      { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
-      { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
-      { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
-    ],
+
+
+
+  const userCalendars = {
+    1: {
+      roundRobin: [
+        // { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
+        // { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
+        // { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
+        // { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
+        // { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
+      ],
+    },
+    2: {
+      roundRobin: [
+        { name: 'Marketing Breakdown Calendar RR', id: 'lm60Myt80lvYZgESN5HR' },
+        { name: 'Business Breakdown Calendar RR', id: 'AD8nwM2zu77gBVj3QGsa' },
+        { name: 'Team Building Breakdown Calendar RR', id: 'KnJdGEyApEyaZOncqyKS' },
+        { name: 'Systems Breakdown Calendar RR', id: 'kz8ASoCNaM8auEQ7QDWP' },
+        { name: 'Bi-weekly Meeting Calendar RR', id: 'osFDzOpgpVNRmj8weAZR' },
+      ],
+    },
+    3: {
+      roundRobin: [
+        { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
+        { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
+        { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
+        { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
+        { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
+      ],
+    },
+    4: {
+      roundRobin: [
+        // { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
+        // { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
+        // { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
+        // { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
+        // { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
+      ],
+    },
+    5: {
+      roundRobin: [
+        // { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
+        // { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
+        // { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
+        // { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
+        // { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
+      ],
+    },    
+    6: {
+      roundRobin: [
+        { name: 'Marketing Breakdown Calendar RR', id: '7bOuuJ94cyx1k71ksyX7' },
+        { name: 'Business Breakdown Calendar RR', id: 'G0IwvLanQuy79RBG3DmG' },
+        { name: 'Team Building Breakdown Calendar RR', id: 'sGSIfoUZcmnQqW7EU41a' },
+        { name: 'Systems Breakdown Calendar RR', id: 'ejLmaKsuT56qJlZ5Q5yO' },
+        { name: 'Bi-weekly Meeting Calendar RR', id: '1dch7GGRXYfuP5vLJDve' },
+      ],
+    },    
+    7: {
+      roundRobin: [
+        { name: 'Marketing Breakdown Calendar RR', id: 'NTYHwUeLxce0CkO94BA1' },
+        { name: 'Business Breakdown Calendar RR', id: '949V78btNC3oguTVNySD' },
+        { name: 'Team Building Breakdown Calendar RR', id: 'KSMHi0nwTwLZ91Ton03r' },
+        { name: 'Systems Breakdown Calendar RR', id: 'Hj9xxqQvysGKzbfOGsbW' },
+        { name: 'Bi-weekly Meeting Calendar RR', id: 'yem26uDVeICxR7TkbThP' },
+      ],
+    },
   };
 
+  const selectedUserCalendars = selectedUser ? userCalendars[selectedUser]?.[calendarType] || [] : [];
 
-  const StevesCalendars = {
-    roundRobin: [
-      { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
-      { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
-      { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
-      { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
-      { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
-    ],
-  };
-
-  const MikesCalendars = {
-    roundRobin: [
-      { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
-      { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
-      { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
-      { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
-      { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
-    ],
-  };
-
-  const CharlesCalendars = {
-    roundRobin: [
-      { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
-      { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
-      { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
-      { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
-      { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
-    ],
-  };
-
-
-  const AlecsCalendars = {
-    roundRobin: [
-      { name: 'Marketing Breakdown Calendar RR', id: 'OC9reDkKUOra6IlSNiqH' },
-      { name: 'Business Breakdown Calendar RR', id: '4yzMBEOTLswbgfLiCz5e' },
-      { name: 'Team Building Breakdown Calendar RR', id: 'noSt7Dt0obyk6PhUC7KQ' },
-      { name: 'Systems Breakdown Calendar RR', id: 'wz65RzKW9OMdoX2oKOVz' },
-      { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
-    ],
-  };
 
 
   
@@ -87,9 +112,7 @@ const BookingForm = () => {
 
       const response = await axios.get(`https://rd.kickinsaas.com/api/contacts/?search=${query}`)
       if (response.status ===200){
-        console.log(response.data)
-      
-      
+        console.log(response.data)      
       setContacts(response.data.results);
 }
     } catch (error) {
@@ -98,8 +121,6 @@ const BookingForm = () => {
       setLoading(false);
     }
   };
-
-
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -231,60 +252,47 @@ const BookingForm = () => {
           
           {/* User Selection */}
           <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="user">
-              Select User <span className="text-red-500">*</span>
-            </label>
-            <select
-              id="user"
-              className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-gray-500 focus:outline-none transition-colors"
-              value={selectedUser}
-              onChange={(e) => setSelectedUser(e.target.value)}
-            >
-              <option value="">Select a user</option>
-              {users.map((user) => (
-                <option key={user.id} value={user.id}>
-                  {user.name}
-                </option>
-              ))}
-            </select>
-            {/* {selectedUser && !isKelceesSelected && (
-              <p className="text-sm text-red-500 mt-1">
-                Only Michael Kelcees' calendars are currently available
-              </p>
-            )} */}
-          </div>
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="user">
+          Select User <span className="text-red-500">*</span>
+        </label>
+        <select
+          id="user"
+          className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-gray-500 focus:outline-none transition-colors"
+          value={selectedUser}
+          onChange={(e) => setSelectedUser(e.target.value)}
+        >
+          <option value="">Select a user</option>
+          {users.map((user) => (
+            <option key={user.id} value={user.id}>
+              {user.name}
+            </option>
+          ))}
+        </select>
+      </div>
           
           {/* Calendar Type Selection - only enabled for Michael Kelcees */}
          
           
           {/* Calendar Selection - only available for Michael Kelcees */}
           <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="calendar">
-              Select Calendar <span className="text-red-500">*</span>
-            </label>
-            <select
-              id="calendar"
-              className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-gray-500 focus:outline-none transition-colors"
-              value={selectedCalendar}
-              onChange={(e) => setSelectedCalendar(e.target.value)}
-              disabled={!calendarType}
-            >
-              <option value="">Select a calendar</option>
-              {calendarType && KelceesCalendars[calendarType].map((calendar) => (
-                <option key={calendar.id} value={calendar.id}>
-                  {calendar.name}
-                </option>
-              ))}
-            </select>
-            {/* {!isKelceesSelected && selectedUser && (
-              <p className="text-sm text-gray-500 mt-1">
-                Please select Michael Kelcees to access calendars
-              </p>
-            )} */}
-            {/* {isKelceesSelected && !calendarType && (
-              <p className="text-sm text-orange-500 mt-1">Please select a calendar type first</p>
-            )} */}
-          </div>
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="calendar">
+          Select Calendar <span className="text-red-500">*</span>
+        </label>
+        <select
+          id="calendar"
+          className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-gray-500 focus:outline-none transition-colors"
+          value={selectedCalendar}
+          onChange={(e) => setSelectedCalendar(e.target.value)}
+          disabled={!selectedUserCalendars.length}
+        >
+          <option value="">Select a calendar</option>
+          {selectedUserCalendars.map((calendar) => (
+            <option key={calendar.id} value={calendar.id}>
+              {calendar.name}
+            </option>
+          ))}
+        </select>
+      </div>
           
           {/* Submit Button */}
           <button
