@@ -22,11 +22,11 @@ const BookingForm = () => {
 
 
   const users = [
-    // { id: 1, name: 'Steven Higgins' },
+    { id: 1, name: 'Steven Higgins' },
     { id: 2, name: 'Mike Reed' },
     { id: 3, name: 'Kelcee Lari' },
-    // { id: 4, name: 'Charles Johnson' },
-    // { id: 5, name: 'Alec Turner' },
+    { id: 4, name: 'Charles Johnson' },
+    { id: 5, name: 'Alec Turner' },
     { id: 6, name: 'Bo Hardy' },
     { id: 7, name: 'Jordan Lane' },
   ];
