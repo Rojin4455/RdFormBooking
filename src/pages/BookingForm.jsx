@@ -208,9 +208,14 @@ const BookingForm = () => {
   return (
 <div className="min-h-screen bg-gradient-to-br from-gray-50 to-indigo-50 flex items-center justify-center p-4">
   <div className="w-full max-w-3xl bg-white rounded-xl shadow-xl overflow-hidden">
-    <div className="bg-gradient-to-r from-gray-800 to-gray-900 px-6 py-8">
-      <h1 className="text-3xl font-bold text-white text-center">Schedule a Meeting</h1>
-      <p className="text-gray-100 text-center mt-2">Find your contact and book a calendar event</p>
+    <div className="bg-gradient-to-r from-gray-800 to-gray-900 px-6 py-8 text-center">
+      <img
+        src="/assets/Logo-1line-Results-Driven-White.png"
+        alt="Logo"
+        className="h-auto max-h-12 mx-auto mb-4"
+      />
+      <h1 className="text-2xl font-bold text-white">Schedule a Meeting</h1>
+      <p className="text-gray-100 text-sm mt-2">Find your contact and book a calendar event</p>
     </div>
 
         {!showBooking && (
