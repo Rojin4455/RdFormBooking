@@ -75,7 +75,7 @@ const BookingForm = () => {
         { name: 'Business Breakdown Calendar RR', id: 'zCXBpWY02pMkQvjAPzjI' },
         { name: 'Team Building Breakdown Calendar RR', id: '88pNtPbV2JrgY8TwBaOE' },
         { name: 'Systems Breakdown Calendar RR', id: '67fokBJiUwE0UzwKHX4f' },
-        // { name: 'Bi-weekly Meeting Calendar RR', id: 'ly2I6eTgKJfIXTUNIdXi' },
+        { name: 'Bi-weekly Meeting Calendar RR', id: 'Fn2TTarEFu8Y1J83Vokz' },
         { name: '90-day Business Audit', id: 'c43l46zeBPPP4Bva7iV2' },
         { name: '150-day Business Audit', id: 'u5p0vzmPtmbrYEthrWB9' },
       ],
